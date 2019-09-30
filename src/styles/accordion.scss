@@ -1,0 +1,181 @@
+.accordion {
+  width: 100%;
+  max-width: 768px;
+  min-height: 0;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .icon-text-box {
+    font-size: 0.9 * $main-font-size;
+    display: flex;
+    align-items: center;
+    min-height: 70px;
+    height: auto;
+    justify-content: flex-start;
+    padding: 0 5px 0 15px;
+    border: none;
+    box-sizing: border-box;
+    margin-top: -5px;
+
+    img {
+      justify-self: flex-start;
+      align-self: center;
+      margin-right: 5px;
+      margin-left: 6px;
+    }
+
+    h3 {
+      display: block;
+      margin: 0;
+      cursor: pointer;
+      box-sizing: border-box;
+      border-bottom: 2px dotted #0777ba;
+      color: #0777ba;
+      font-size: 14px;
+
+    }
+  }
+}
+
+/* Формируем блоки с содержанием */
+.msg {
+  position: relative;
+  overflow: hidden;
+  max-height: 800px;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.msg p {
+  line-height: 20px;
+  padding: 20px
+}
+
+@media (max-width: 550px) {
+  .accordion {
+    box-sizing: border-box;
+    transform: translate(0, 0);
+    max-width: 100%;
+    min-height: 100%;
+    margin: 0;
+    left: 0;
+  }
+}
+
+.accordion ul {
+  list-style: none;
+  perspective: 900;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion ul li {
+  position: relative;
+  padding: 0;
+
+  .remove-check {
+    font-size: 16px;
+    font-weight: bold;
+    align-self: center;
+    justify-self: center;
+    margin-top: 30px;
+    margin-left: 40px;
+  }
+}
+
+.accordion ul li:nth-of-type(1) {
+  animation-delay: 0.5s;
+}
+
+.accordion ul li:nth-of-type(2) {
+  animation-delay: 0.75s;
+}
+
+.accordion ul li:nth-of-type(3) {
+  animation-delay: 1s;
+}
+
+.accordion ul li:last-of-type {
+  padding-bottom: 0;
+}
+
+/* Делаем чекбокс скрытым*/
+.accordion ul li input[type=checkbox] {
+  position: absolute;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+/* Когда у флажка установлен checked
+ * блок с содержанием скрыт
+*/
+.accordion ul li input[type=checkbox]:checked ~ div.msg {
+  margin-top: 0;
+  height: 0;
+  opacity: 0;
+  transform: translate(0, 50%);
+}
+
+input[type=checkbox]:checked ~ .remove-check {
+  display: none;
+  transition: ease-in-out .1s;
+}
+
+input[type=checkbox]:checked ~ .icon-text-box {
+  border-top: 1px solid rgba(206, 208, 228, 0.5);
+  border-bottom: 1px solid rgba(206, 208, 228, 0.5);
+}
+
+
+/* Сформируем  указатель переключения состояния аккордеона */
+i {
+  position: absolute;
+  top: 34px;
+  transform: translate(-6px, 0);
+  right: 25px;
+}
+
+/* сам указатель */
+i:before, i:after {
+  content: "";
+  position: absolute;
+  background-color: #0777ba;
+  width: 3px;
+  height: 9px;
+}
+
+/* Добавляем элемент трансформации указателя при переключении */
+i:before {
+  transform: translate(-2px, 0) rotate(45deg);
+}
+
+i:after {
+  transform: translate(2px, 0) rotate(-45deg);
+}
+
+input[type=checkbox]:checked ~ i:before {
+  transform: translate(2px, 0) rotate(45deg);
+}
+
+input[type=checkbox]:checked ~ i:after {
+  transform: translate(-2px, 0) rotate(-45deg);
+}
+
+/*  Устанавливаем эффект перехода
+ * между двумя состояниями указателя
+*/
+i:before, i:after {
+  transition: all 0.5s ease-in-out;
+}
+
+div.msg,
+ul li i:before,
+ul li i:after {
+  transition: all 0.5s ease-in-out;
+}
